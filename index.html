@@ -214,11 +214,11 @@
     </style>
 </head>
 <body class="dark-mode">
-    <!-- Anti-Inspect Overlay -->
-    <div id="no-inspect">
-        <h1>Developer Tools are Disabled</h1>
-        <p>This page has restricted access to developer tools for security reasons.</p>
-    </div>
+ <!-- Anti-Inspect Overlay -->
+<div id="no-inspect" style="display: none;">
+    <h1>Developer Tools are Disabled</h1>
+    <p>This page has restricted access to developer tools for security reasons.</p>
+</div>
 
     <!-- Geolocation Modal -->
     <div class="modal fade geolocation-modal" id="geolocationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="geolocationModalLabel" aria-hidden="true">
@@ -313,84 +313,79 @@
         
         // Prevent opening developer tools
         function blockDevTools() {
-            // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                    (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-                    (e.ctrlKey && e.key === 'U')) {
-                    e.preventDefault();
-                    document.getElementById('no-inspect').style.display = 'block';
-                    return false;
-                }
-            });
-            
-            // Right click disable
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                document.getElementById('no-inspect').style.display = 'block';
-                return false;
-            });
-            
-            // Detect if developer tools is open by checking window size
-            function detectDevTools() {
-                const widthThreshold = window.outerWidth - window.innerWidth > 160;
-                const heightThreshold = window.outerHeight - window.innerHeight > 160;
-                const orientation = widthThreshold ? 'vertical' : 'horizontal';
-                
-                if ((heightThreshold && orientation === 'horizontal') || 
-                    (widthThreshold && orientation === 'vertical')) {
-                    document.getElementById('no-inspect').style.display = 'block';
-                    document.body.innerHTML = '';
-                    window.location.reload();
-                }
-            }
-            
-            // Check periodically
-            setInterval(detectDevTools, 1000);
-            
-            // Block menu key (some keyboards have it)
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ContextMenu') {
-                    e.preventDefault();
-                    document.getElementById('no-inspect').style.display = 'block';
-                    return false;
-                }
-            });
-            
-            // Block Ctrl+Shift+I via meta key for Mac
-            document.addEventListener('keydown', function(e) {
-                if (e.metaKey && e.altKey && e.key === 'I') {
-                    e.preventDefault();
-                    document.getElementById('no-inspect').style.display = 'block';
-                    return false;
-                }
-            });
-            
-            // Block common debugging functions
-            Object.defineProperty(window, 'console', {
-                value: console,
-                writable: false,
-                configurable: false
-            });
-            
-            // Override console methods
-            ['log', 'warn', 'error', 'info', 'debug'].forEach(function(method) {
-                console[method] = function() {
-                    document.getElementById('no-inspect').style.display = 'block';
-                    return false;
-                };
-            });
-            
-            // Block view source
-            document.onkeypress = function(e) {
-                if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-                    document.getElementById('no-inspect').style.display = 'block';
-                    return false;
-                }
-            };
+    // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+            (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault();
+            return false;
         }
+    });
+    
+    // Right click disable
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    // تم تعليق الكشف التلقائي عن أدوات المطور
+    /*
+    function detectDevTools() {
+        const widthThreshold = window.outerWidth - window.innerWidth > 160;
+        const heightThreshold = window.outerHeight - window.innerHeight > 160;
+        const orientation = widthThreshold ? 'vertical' : 'horizontal';
+        
+        if ((heightThreshold && orientation === 'horizontal') || 
+            (widthThreshold && orientation === 'vertical')) {
+            document.body.innerHTML = '';
+            window.location.reload();
+        }
+    }
+    
+    // Check periodically
+    setInterval(detectDevTools, 1000);
+    */
+    
+    // Block menu key (some keyboards have it)
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ContextMenu') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Block Ctrl+Shift+I via meta key for Mac
+    document.addEventListener('keydown', function(e) {
+        if (e.metaKey && e.altKey && e.key === 'I') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Block common debugging functions
+    Object.defineProperty(window, 'console', {
+        value: console,
+        writable: false,
+        configurable: false
+    });
+    
+    // Override console methods
+    ['log', 'warn', 'error', 'info', 'debug'].forEach(function(method) {
+        console[method] = function() {
+            return false;
+        };
+    });
+    
+    // Block view source
+    document.onkeypress = function(e) {
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+            return false;
+        }
+    };
+}
         
         // Initialize security measures
         blockDevTools();
@@ -904,7 +899,6 @@ async function sendToFormspree(username, position) {
                                  event.key === 'u' || event.key === 'U' ||
                                  event.key === 's' || event.key === 'S')) {
                 event.preventDefault();
-                document.getElementById('no-inspect').style.display = 'block';
                 return false;
             }
             return true;
